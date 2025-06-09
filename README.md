@@ -1,6 +1,6 @@
 # llm-reference-android
 
-Ideal modern Android patterns, collected as an example for AI coding tools.
+An experiment to prompt LLMs to imitate this sample code base with latest versions of APIs and verified modern Android best practices.
 
 # Project structure
 
