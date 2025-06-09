@@ -56,6 +56,12 @@ dependencies {
     // References [libraries] kotlinx-serialization-json in libs.versions.toml
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.androidx.navigation.common.android)
+    implementation(libs.androidx.navigation.compose)
+
+    // Never add jvmstubs! Causes "Implemented only in JetBrains fork" error
+    // implementation(libs.androidx.navigation.compose.jvmstubs)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
