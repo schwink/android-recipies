@@ -17,3 +17,11 @@ Ideal modern Android patterns, collected as an example for AI coding tools.
 - rememberNavController() and define the NavHost in the App composable
 - Use backStackEntry.toRoute<T> to get destinations
 - To pass complex arguments, use a helper class like SerializableJsonNavType
+
+# Style
+
+- Use Material Design v3 androidx.compose.material3
+- In the Activity, wrap the App composable in the theme to apply it everywhere
+- Set Theme dynamicColor = false so that it follows the specified colors
+- Use https://m3.material.io/theme-builder to easily create a theme from the colors in an uploaded photo
+
