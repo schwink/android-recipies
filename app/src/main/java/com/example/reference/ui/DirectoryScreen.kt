@@ -13,6 +13,7 @@ import com.example.ui.TextH1
 fun DirectoryScreen(
     modifier: Modifier = Modifier,
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
+    onSelectBasicViewModel: () -> Unit
 ) {
     Column(modifier = modifier) {
         TextH1(text = "Navigation")
@@ -20,6 +21,11 @@ fun DirectoryScreen(
             onSelectCustomNavType(ExampleCustomNavData(value = "Sent this value!"))
         }) {
             Text("Pass custom data type to navigation destination")
+        }
+
+        TextH1(text = "ViewModel")
+        Button(onClick = { onSelectBasicViewModel() }) {
+            Text("Basic ViewModel setup")
         }
     }
 }
@@ -29,7 +35,8 @@ fun DirectoryScreen(
 fun DirectoryScreenPreview() {
     ReferenceTheme {
         DirectoryScreen(
-            onSelectCustomNavType = {}
+            onSelectCustomNavType = {},
+            onSelectBasicViewModel = {},
         )
     }
 }
