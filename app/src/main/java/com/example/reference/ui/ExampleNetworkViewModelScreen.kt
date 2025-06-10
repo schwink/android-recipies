@@ -1,15 +1,18 @@
 package com.example.reference.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +20,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,6 +36,10 @@ sealed class ExampleNetworkUiState {
     data class Success(val state: ExampleBasicUiState) : ExampleNetworkUiState()
 }
 
+sealed class UiEvent {
+    data class TransientError(val message: String) : UiEvent()
+}
+
 class ExampleNetworkViewModel(private val networkClient: ExampleUnreliableNetworkClient) :
     ViewModel() {
 
@@ -38,6 +47,9 @@ class ExampleNetworkViewModel(private val networkClient: ExampleUnreliableNetwor
         ExampleNetworkUiState.Loading
     )
     val uiState: StateFlow<ExampleNetworkUiState> = _uiState.asStateFlow()
+
+    private val _uiEvents = MutableSharedFlow<UiEvent>()
+    val uiEvents: SharedFlow<UiEvent> = _uiEvents
 
     init {
         fetchInitialData()
@@ -88,7 +100,7 @@ class ExampleNetworkViewModel(private val networkClient: ExampleUnreliableNetwor
                     }
                 }
             }.onFailure { e ->
-                Log.e("ExampleNetworkViewModel", "Failed to load", e)
+                _uiEvents.emit(UiEvent.TransientError("Failed to increment, please try again"))
             }
         }
     }
@@ -108,9 +120,23 @@ class ExampleNetworkViewModel(private val networkClient: ExampleUnreliableNetwor
 fun ExampleNetworkViewModelScreen(
     viewModel: ExampleNetworkViewModel,
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvents.collect { event ->
+            when (event) {
+                is UiEvent.TransientError -> {
+                    snackbarHostState.showSnackbar(event.message)
+                }
+            }
+        }
+    }
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Scaffold { contentPadding ->
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
             when (val currentUiState = uiState) {
                 is ExampleNetworkUiState.Loading -> {
