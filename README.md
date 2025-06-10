@@ -1,4 +1,4 @@
-# reference-android
+# Android reference app
 
 A simple app showcasing latest versions of APIs and verified best practices.
 
