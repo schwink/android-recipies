@@ -1,6 +1,8 @@
-# llm-reference-android
+# reference-android
 
-An experiment to prompt LLMs to imitate this sample code base with latest versions of APIs and verified modern Android best practices.
+A simple app showcasing latest versions of APIs and verified best practices.
+
+Intended use is to prompt LLMs to imitate this sample code base.
 
 # Project structure
 
@@ -9,18 +11,18 @@ An experiment to prompt LLMs to imitate this sample code base with latest versio
 
 # Project dependencies
 
-- Never recommend *.jvmstubs dependencies
+- Never add *.jvmstubs dependencies
 
 # Navigation
 
 - Use the type-safe Kotlin DSL with androidx.navigation.compose.NavHost
-- rememberNavController() and define the NavHost in the App composable
+- In the App composable, rememberNavController() and define the NavHost
 - Use backStackEntry.toRoute<T> to get destinations
-- To pass complex arguments, use a helper class like SerializableJsonNavType
+- To pass complex serializable arguments, use a helper class like SerializableJsonNavType
 
 # Screens
 
-- Each screen in the app has a root component which starts with a androidx.compose.material3.Scaffold
+- Each screen in the app has a root component hosting a androidx.compose.material3.Scaffold
 - Screens use ViewModels and delegate their asynchronous suspend work to viewModelScope
 
 # Style
@@ -28,5 +30,3 @@ An experiment to prompt LLMs to imitate this sample code base with latest versio
 - Use Material Design v3 androidx.compose.material3
 - In the Activity, wrap the App composable in the theme to apply it everywhere
 - Set Theme dynamicColor = false so that it follows the specified colors
-- Use https://m3.material.io/theme-builder to easily create a theme from the colors in an uploaded photo
-
