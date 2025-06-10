@@ -1,7 +1,6 @@
 package com.example.reference
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,7 +37,7 @@ object ExampleCustomNavType :
     SerializableJsonNavType<ExampleCustomNavData>(ExampleCustomNavData.serializer())
 
 @Composable
-fun ReferenceApp(modifier: Modifier) {
+fun ReferenceApp() {
     val navController = rememberNavController()
 
     val typeMap = mapOf(
@@ -46,7 +45,6 @@ fun ReferenceApp(modifier: Modifier) {
     )
 
     NavHost(
-        modifier = modifier,
         navController = navController,
         startDestination = Destinations.Directory,
         typeMap = typeMap,

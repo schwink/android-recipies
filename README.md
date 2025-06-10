@@ -18,6 +18,11 @@ An experiment to prompt LLMs to imitate this sample code base with latest versio
 - Use backStackEntry.toRoute<T> to get destinations
 - To pass complex arguments, use a helper class like SerializableJsonNavType
 
+# Screens
+
+- Each screen in the app has a root component which starts with a androidx.compose.material3.Scaffold
+- Screens use ViewModels and delegate their asynchronous suspend work to viewModelScope
+
 # Style
 
 - Use Material Design v3 androidx.compose.material3

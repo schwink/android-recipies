@@ -1,5 +1,7 @@
 package com.example.reference.ui
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,5 +17,7 @@ fun ExampleCustomNavTypeScreen(
     modifier: Modifier = Modifier,
     data: ExampleCustomNavData?
 ) {
-    Text(modifier = modifier, text = data?.value ?: "<null>")
+    Scaffold { contentPadding ->
+        Text(modifier = Modifier.padding(contentPadding), text = data?.value ?: "<null>")
+    }
 }

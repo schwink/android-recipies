@@ -1,7 +1,9 @@
 package com.example.reference.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,15 +43,16 @@ class ExampleBasicViewModel : ViewModel() {
 
 @Composable
 fun ExampleBasicViewModelScreen(
-    modifier: Modifier = Modifier,
     viewModel: ExampleBasicViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Column(modifier = modifier) {
-        Text("Click counter ${uiState.clickCounter}")
-        Button(onClick = { viewModel.incrementCounter() }) {
-            Text("Click")
+    Scaffold { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
+            Text("Click counter ${uiState.clickCounter}")
+            Button(onClick = { viewModel.incrementCounter() }) {
+                Text("Click")
+            }
         }
     }
 }

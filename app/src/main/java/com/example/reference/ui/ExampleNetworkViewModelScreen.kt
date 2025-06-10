@@ -2,10 +2,11 @@ package com.example.reference.ui
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -105,32 +106,33 @@ class ExampleNetworkViewModel(private val networkClient: ExampleUnreliableNetwor
 
 @Composable
 fun ExampleNetworkViewModelScreen(
-    modifier: Modifier = Modifier,
     viewModel: ExampleNetworkViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Column(modifier = modifier.fillMaxSize()) {
-        when (val currentUiState = uiState) {
-            is ExampleNetworkUiState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is ExampleNetworkUiState.Success -> {
-                val state = currentUiState.state
-                Text("Click counter ${state.clickCounter}")
-                Button(onClick = { viewModel.incrementCounter() }) {
-                    Text("Click")
+    Scaffold { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
+            when (val currentUiState = uiState) {
+                is ExampleNetworkUiState.Loading -> {
+                    CircularProgressIndicator()
                 }
-            }
 
-            is ExampleNetworkUiState.Failure -> {
-                Text(
-                    text = "Error loading",
-                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.error)
-                )
-                Button(onClick = { viewModel.fetchInitialData() }) {
-                    Text("Retry")
+                is ExampleNetworkUiState.Success -> {
+                    val state = currentUiState.state
+                    Text("Click counter ${state.clickCounter}")
+                    Button(onClick = { viewModel.incrementCounter() }) {
+                        Text("Click")
+                    }
+                }
+
+                is ExampleNetworkUiState.Failure -> {
+                    Text(
+                        text = "Error loading",
+                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.error)
+                    )
+                    Button(onClick = { viewModel.fetchInitialData() }) {
+                        Text("Retry")
+                    }
                 }
             }
         }
