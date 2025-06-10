@@ -31,7 +31,7 @@ class ExampleBasicViewModel : ViewModel() {
         viewModelScope.launch {
             delay(300L)
 
-            _uiState.update { it ->
+            _uiState.update {
                 // Use the data class copy constructor to create an updated copy
                 it.copy(clickCounter = it.clickCounter + 1)
             }

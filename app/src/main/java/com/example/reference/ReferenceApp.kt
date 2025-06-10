@@ -13,6 +13,8 @@ import com.example.reference.ui.ExampleBasicViewModel
 import com.example.reference.ui.ExampleBasicViewModelScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ExampleCustomNavTypeScreen
+import com.example.reference.ui.ExampleNetworkViewModel
+import com.example.reference.ui.ExampleNetworkViewModelScreen
 import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
 
@@ -27,6 +29,9 @@ sealed class Destinations {
 
     @Serializable
     object BasicViewModel
+
+    @Serializable
+    object NetworkViewModel
 }
 
 object ExampleCustomNavType :
@@ -55,7 +60,11 @@ fun ReferenceApp(modifier: Modifier) {
                 onSelectBasicViewModel = {
                     val destination = Destinations.BasicViewModel
                     navController.navigate(destination)
-                }
+                },
+                onSelectNetworkViewModel = {
+                    val destination = Destinations.NetworkViewModel
+                    navController.navigate(destination)
+                },
             )
         }
         composable<Destinations.ExampleCustomNavType>(typeMap = typeMap) { backStackEntry ->
@@ -74,6 +83,13 @@ fun ReferenceApp(modifier: Modifier) {
             )
 
             ExampleBasicViewModelScreen(viewModel = viewModel)
+        }
+        composable<Destinations.NetworkViewModel> { backStackEntry ->
+            val viewModel = viewModel<ExampleNetworkViewModel>(
+                factory = ExampleNetworkViewModel.Factory(),
+            )
+
+            ExampleNetworkViewModelScreen(viewModel = viewModel)
         }
     }
 }
