@@ -169,7 +169,7 @@ class ExampleNetworkViewModel(private val networkClient: ExampleUnreliableNetwor
 }
 
 @Composable
-fun ExampleNetworkViewModelScreen(
+fun ExampleViewModelNetworkScreen(
     viewModel: ExampleNetworkViewModel,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }

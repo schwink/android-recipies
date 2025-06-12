@@ -14,8 +14,8 @@ import com.example.ui.TextH1
 @Composable
 fun DirectoryScreen(
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
-    onSelectBasicViewModel: () -> Unit,
-    onSelectNetworkViewModel: () -> Unit,
+    onSelectViewModelBasic: () -> Unit,
+    onSelectViewModelNetwork: () -> Unit,
     onSelectChromeReadme: () -> Unit,
     onSelectChromeModalTextInput: () -> Unit,
 ) {
@@ -29,10 +29,10 @@ fun DirectoryScreen(
             }
 
             TextH1(text = "ViewModel")
-            Button(onClick = { onSelectBasicViewModel() }) {
+            Button(onClick = { onSelectViewModelBasic() }) {
                 Text("Basic ViewModel setup")
             }
-            Button(onClick = { onSelectNetworkViewModel() }) {
+            Button(onClick = { onSelectViewModelNetwork() }) {
                 Text("ViewModel with network")
             }
 
@@ -53,8 +53,8 @@ fun DirectoryScreenPreview() {
     ReferenceTheme {
         DirectoryScreen(
             onSelectCustomNavType = {},
-            onSelectBasicViewModel = {},
-            onSelectNetworkViewModel = {},
+            onSelectViewModelBasic = {},
+            onSelectViewModelNetwork = {},
             onSelectChromeReadme = {},
             onSelectChromeModalTextInput = {},
         )

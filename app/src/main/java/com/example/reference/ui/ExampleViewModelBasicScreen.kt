@@ -42,7 +42,7 @@ class ExampleBasicViewModel : ViewModel() {
 }
 
 @Composable
-fun ExampleBasicViewModelScreen(
+fun ExampleViewModelBasicScreen(
     viewModel: ExampleBasicViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

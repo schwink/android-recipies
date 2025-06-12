@@ -10,12 +10,12 @@ import com.example.navigation.SerializableJsonNavType
 import com.example.reference.ui.ChromeReadmeScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleBasicViewModel
-import com.example.reference.ui.ExampleBasicViewModelScreen
 import com.example.reference.ui.ExampleChromeModalTextInputScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ExampleCustomNavTypeScreen
 import com.example.reference.ui.ExampleNetworkViewModel
-import com.example.reference.ui.ExampleNetworkViewModelScreen
+import com.example.reference.ui.ExampleViewModelBasicScreen
+import com.example.reference.ui.ExampleViewModelNetworkScreen
 import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
 
@@ -29,10 +29,10 @@ sealed class Destinations {
     )
 
     @Serializable
-    object BasicViewModel
+    object ViewModelBasic
 
     @Serializable
-    object NetworkViewModel
+    object ViewModelNetwork
 
     @Serializable
     object ChromeReadme
@@ -63,12 +63,12 @@ fun ReferenceApp() {
                     val destination = Destinations.ExampleCustomNavType(data)
                     navController.navigate(destination)
                 },
-                onSelectBasicViewModel = {
-                    val destination = Destinations.BasicViewModel
+                onSelectViewModelBasic = {
+                    val destination = Destinations.ViewModelBasic
                     navController.navigate(destination)
                 },
-                onSelectNetworkViewModel = {
-                    val destination = Destinations.NetworkViewModel
+                onSelectViewModelNetwork = {
+                    val destination = Destinations.ViewModelNetwork
                     navController.navigate(destination)
                 },
                 onSelectChromeReadme = {
@@ -85,7 +85,7 @@ fun ReferenceApp() {
 
             ExampleCustomNavTypeScreen(data = destination.initialValue)
         }
-        composable<Destinations.BasicViewModel> { backStackEntry ->
+        composable<Destinations.ViewModelBasic> { backStackEntry ->
             // Create a new ViewModel with this destination as its scope.
             // It will be destroyed when navigating back.
             val viewModel = viewModel(
@@ -95,14 +95,14 @@ fun ReferenceApp() {
                 key = backStackEntry.id,
             )
 
-            ExampleBasicViewModelScreen(viewModel = viewModel)
+            ExampleViewModelBasicScreen(viewModel = viewModel)
         }
-        composable<Destinations.NetworkViewModel> { backStackEntry ->
+        composable<Destinations.ViewModelNetwork> { backStackEntry ->
             val viewModel = viewModel<ExampleNetworkViewModel>(
                 factory = ExampleNetworkViewModel.Factory(),
             )
 
-            ExampleNetworkViewModelScreen(viewModel = viewModel)
+            ExampleViewModelNetworkScreen(viewModel = viewModel)
         }
         composable<Destinations.ChromeReadme> {
             ChromeReadmeScreen()
