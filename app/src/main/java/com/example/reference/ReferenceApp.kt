@@ -7,9 +7,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.navigation.SerializableJsonNavType
+import com.example.reference.ui.ChromeReadmeScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleBasicViewModel
 import com.example.reference.ui.ExampleBasicViewModelScreen
+import com.example.reference.ui.ExampleChromeModalTextInputScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ExampleCustomNavTypeScreen
 import com.example.reference.ui.ExampleNetworkViewModel
@@ -31,6 +33,12 @@ sealed class Destinations {
 
     @Serializable
     object NetworkViewModel
+
+    @Serializable
+    object ChromeReadme
+
+    @Serializable
+    object ChromeModalTextInput
 }
 
 object ExampleCustomNavType :
@@ -63,6 +71,13 @@ fun ReferenceApp() {
                     val destination = Destinations.NetworkViewModel
                     navController.navigate(destination)
                 },
+                onSelectChromeReadme = {
+                    navController.navigate(Destinations.ChromeReadme)
+
+                },
+                onSelectChromeModalTextInput = {
+                    navController.navigate(Destinations.ChromeModalTextInput)
+                },
             )
         }
         composable<Destinations.ExampleCustomNavType>(typeMap = typeMap) { backStackEntry ->
@@ -88,6 +103,12 @@ fun ReferenceApp() {
             )
 
             ExampleNetworkViewModelScreen(viewModel = viewModel)
+        }
+        composable<Destinations.ChromeReadme> {
+            ChromeReadmeScreen()
+        }
+        composable<Destinations.ChromeModalTextInput> {
+            ExampleChromeModalTextInputScreen()
         }
     }
 }

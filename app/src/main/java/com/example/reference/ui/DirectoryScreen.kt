@@ -1,7 +1,6 @@
 package com.example.reference.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -17,6 +16,8 @@ fun DirectoryScreen(
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
     onSelectBasicViewModel: () -> Unit,
     onSelectNetworkViewModel: () -> Unit,
+    onSelectChromeReadme: () -> Unit,
+    onSelectChromeModalTextInput: () -> Unit,
 ) {
     Scaffold { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
@@ -34,6 +35,14 @@ fun DirectoryScreen(
             Button(onClick = { onSelectNetworkViewModel() }) {
                 Text("ViewModel with network")
             }
+
+            TextH1(text = "Chrome")
+            Button(onClick = { onSelectChromeReadme() }) {
+                Text("Gotchas for system bars, emulator behavior, etc.")
+            }
+            Button(onClick = { onSelectChromeModalTextInput() }) {
+                Text("Modal text input screen reacting to soft keyboard and nav bar")
+            }
         }
     }
 }
@@ -46,6 +55,8 @@ fun DirectoryScreenPreview() {
             onSelectCustomNavType = {},
             onSelectBasicViewModel = {},
             onSelectNetworkViewModel = {},
+            onSelectChromeReadme = {},
+            onSelectChromeModalTextInput = {},
         )
     }
 }
