@@ -11,6 +11,7 @@ import com.example.reference.ui.ChromeReadmeScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleBasicViewModel
 import com.example.reference.ui.ExampleChromeModalTextInputScreen
+import com.example.reference.ui.ExampleComponentsRoundedCornersScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ExampleCustomNavTypeScreen
 import com.example.reference.ui.ExampleNetworkViewModel
@@ -39,6 +40,9 @@ sealed class Destinations {
 
     @Serializable
     object ChromeModalTextInput
+
+    @Serializable
+    object ComponentsRoundedCorners
 }
 
 object ExampleCustomNavType :
@@ -78,6 +82,9 @@ fun ReferenceApp() {
                 onSelectChromeModalTextInput = {
                     navController.navigate(Destinations.ChromeModalTextInput)
                 },
+                onSelectComponentsRoundedCorners = {
+                    navController.navigate(Destinations.ComponentsRoundedCorners)
+                }
             )
         }
         composable<Destinations.ExampleCustomNavType>(typeMap = typeMap) { backStackEntry ->
@@ -109,6 +116,9 @@ fun ReferenceApp() {
         }
         composable<Destinations.ChromeModalTextInput> {
             ExampleChromeModalTextInputScreen()
+        }
+        composable<Destinations.ComponentsRoundedCorners> {
+            ExampleComponentsRoundedCornersScreen()
         }
     }
 }
