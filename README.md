@@ -1,32 +1,28 @@
-# Android reference app
+# Android Recipies
 
-A simple app showcasing latest versions of APIs and verified best practices.
+A cookbook of widgets and UI constructions I like to reuse.
 
-Intended use is to prompt LLMs to imitate this sample code base.
+I originally committed this to try and prompt ChatGPT to follow the patterns here, after noticing weird recommendations that I believe may be references to outdated beta releases of Jetpack Compose. That didn't really work, but here are the instructions:
 
-# Project structure
+## Project structure
 
 - Define a top-level App composable entrypoint which MainActivity delegates to
 - Define a custom Application to hold androidx.lifecycle.viewmodel.CreationExtras for dependency injection
 
-# Project dependencies
+## Project dependencies
 
-- Never add *.jvmstubs dependencies
+- The app should never depend on *.jvmstubs libraries
 
-# Navigation
+## Navigation
 
 - Use the type-safe Kotlin DSL with androidx.navigation.compose.NavHost
-- In the App composable, rememberNavController() and define the NavHost
-- Use backStackEntry.toRoute<T> to get destinations
 - To pass complex serializable arguments, use a helper class like SerializableJsonNavType
 
-# Screens
+## Screens
 
-- Each screen in the app has a root component hosting a androidx.compose.material3.Scaffold
-- Screens use ViewModels and delegate their asynchronous suspend work to viewModelScope
+- Each screen in the app has a root component named *Screen hosting a androidx.compose.material3.Scaffold
 
-# Style
+## Style
 
 - Use Material Design v3 androidx.compose.material3
-- In the Activity, wrap the App composable in the theme to apply it everywhere
-- Set Theme dynamicColor = false so that it follows the specified colors
+- Set ```dynamicColor = false``` on the theme so that it actually uses the specified colors
