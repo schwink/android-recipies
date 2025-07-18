@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
@@ -65,24 +67,26 @@ fun ChromeReadmeScreen() {
 @Composable
 fun api3435SystemBarText(): AnnotatedString {
     val uriHandler = LocalUriHandler.current
-    return buildAnnotatedString {
-        append(
-            "To maintain consistent behavior, need to manually specify the system bar background and content colors.\n\n"
-        )
+    return remember {
+        buildAnnotatedString {
+            append(
+                "To maintain consistent behavior, need to manually specify the system bar background and content colors.\n\n"
+            )
 
-        val link =
-            LinkAnnotation.Url(
-                "https://www.droidcon.com/2025/02/04/the-elephant-in-the-room-for-android-devs-jetpack-compose-and-edge-to-edge-on-android-15/",
-                TextLinkStyles(
-                    SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
+            val link =
+                LinkAnnotation.Url(
+                    "https://www.droidcon.com/2025/02/04/the-elephant-in-the-room-for-android-devs-jetpack-compose-and-edge-to-edge-on-android-15/",
+                    TextLinkStyles(
+                        SpanStyle(
+                            fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.Underline
+                        )
                     )
-                )
-            ) {
-                val url = (it as LinkAnnotation.Url).url
-                uriHandler.openUri(url)
-            }
-        withLink(link) { append("Good write-up here") }
+                ) {
+                    val url = (it as LinkAnnotation.Url).url
+                    uriHandler.openUri(url)
+                }
+            withLink(link) { append("Good write-up here") }
+        }
     }
 }
