@@ -19,6 +19,7 @@ fun DirectoryScreen(
     onSelectChromeReadme: () -> Unit,
     onSelectChromeModalTextInput: () -> Unit,
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
+    onSelectAnimationLayoutScaleOnScroll: () -> Unit,
     onSelectComponentsRoundedCorners: () -> Unit,
 ) {
     Scaffold { contentPadding ->
@@ -50,6 +51,9 @@ fun DirectoryScreen(
             Button(onClick = { onSelectAnimationOffsetPaddingOnScroll() }) {
                 Text("Change header padding on scroll without triggering recomposition")
             }
+            Button(onClick = { onSelectAnimationLayoutScaleOnScroll() }) {
+                Text("Shrink header image dimensions on scroll without triggering recomposition")
+            }
 
             TextH1(text = "UI Components")
             Button(onClick = { onSelectComponentsRoundedCorners() }) {
@@ -71,6 +75,7 @@ fun DirectoryScreenPreview() {
             onSelectChromeModalTextInput = {},
             onSelectAnimationOffsetPaddingOnScroll = {},
             onSelectComponentsRoundedCorners = {},
+            onSelectAnimationLayoutScaleOnScroll = {},
         )
     }
 }
