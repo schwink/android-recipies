@@ -18,6 +18,7 @@ fun DirectoryScreen(
     onSelectViewModelNetwork: () -> Unit,
     onSelectChromeReadme: () -> Unit,
     onSelectChromeModalTextInput: () -> Unit,
+    onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectComponentsRoundedCorners: () -> Unit,
 ) {
     Scaffold { contentPadding ->
@@ -45,6 +46,11 @@ fun DirectoryScreen(
                 Text("Modal text input screen reacting to soft keyboard and nav bar")
             }
 
+            TextH1(text = "Animation")
+            Button(onClick = { onSelectAnimationOffsetPaddingOnScroll() }) {
+                Text("Change header padding on scroll without triggering recomposition")
+            }
+
             TextH1(text = "UI Components")
             Button(onClick = { onSelectComponentsRoundedCorners() }) {
                 Text("Rounded corners on various components")
@@ -63,6 +69,7 @@ fun DirectoryScreenPreview() {
             onSelectViewModelNetwork = {},
             onSelectChromeReadme = {},
             onSelectChromeModalTextInput = {},
+            onSelectAnimationOffsetPaddingOnScroll = {},
             onSelectComponentsRoundedCorners = {},
         )
     }

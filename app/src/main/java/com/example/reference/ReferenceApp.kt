@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.navigation.SerializableJsonNavType
+import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ChromeReadmeScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleBasicViewModel
@@ -40,6 +41,9 @@ sealed class Destinations {
 
     @Serializable
     object ChromeModalTextInput
+
+    @Serializable
+    object AnimationOffsetPaddingOnScroll
 
     @Serializable
     object ComponentsRoundedCorners
@@ -82,6 +86,9 @@ fun ReferenceApp() {
                 onSelectChromeModalTextInput = {
                     navController.navigate(Destinations.ChromeModalTextInput)
                 },
+                onSelectAnimationOffsetPaddingOnScroll = {
+                    navController.navigate(Destinations.AnimationOffsetPaddingOnScroll)
+                },
                 onSelectComponentsRoundedCorners = {
                     navController.navigate(Destinations.ComponentsRoundedCorners)
                 }
@@ -116,6 +123,9 @@ fun ReferenceApp() {
         }
         composable<Destinations.ChromeModalTextInput> {
             ExampleChromeModalTextInputScreen()
+        }
+        composable<Destinations.AnimationOffsetPaddingOnScroll> {
+            AnimationOffsetPaddingOnScrollScreen()
         }
         composable<Destinations.ComponentsRoundedCorners> {
             ExampleComponentsRoundedCornersScreen()
