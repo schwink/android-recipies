@@ -1,5 +1,6 @@
 package com.example.reference.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -8,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.reference.ui.theme.ReferenceTheme
 import com.example.ui.TextH1
 
@@ -23,7 +25,10 @@ fun DirectoryScreen(
     onSelectComponentsRoundedCorners: () -> Unit,
 ) {
     Scaffold { contentPadding ->
-        Column(modifier = Modifier.padding(contentPadding)) {
+        Column(
+            modifier = Modifier.padding(contentPadding),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
             TextH1(text = "Navigation")
             Button(onClick = {
                 onSelectCustomNavType(ExampleCustomNavData(value = "Sent this value!"))
@@ -60,22 +65,5 @@ fun DirectoryScreen(
                 Text("Rounded corners on various components")
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DirectoryScreenPreview() {
-    ReferenceTheme {
-        DirectoryScreen(
-            onSelectCustomNavType = {},
-            onSelectViewModelBasic = {},
-            onSelectViewModelNetwork = {},
-            onSelectChromeReadme = {},
-            onSelectChromeModalTextInput = {},
-            onSelectAnimationOffsetPaddingOnScroll = {},
-            onSelectComponentsRoundedCorners = {},
-            onSelectAnimationLayoutScaleOnScroll = {},
-        )
     }
 }
