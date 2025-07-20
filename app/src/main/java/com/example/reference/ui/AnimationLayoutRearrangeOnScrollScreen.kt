@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -31,12 +30,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import com.example.reference.ui.theme.Typography
 
-private val HeaderMaxHeight = 200.dp
+private val HeaderMaxHeight = 300.dp
 private val HeaderMinHeight = 100.dp
 
 @Composable
-fun AnimationLayoutShrinkImageOnScrollScreen() {
+fun AnimationLayoutRearrangeOnScrollScreen() {
     Scaffold { contentPadding ->
         Box(
             modifier = Modifier
@@ -71,11 +71,10 @@ private fun Header(
         modifier = Modifier
             .background(Color.Red)
             .fillMaxWidth()
-            .height(HeaderMaxHeight)
     ) {
         // Calculate dp->px on composition rather than more frequently on layout
-        val maxHeightPx = with(LocalDensity.current) { HeaderMaxHeight.roundToPx() }
-        val minHeightPx = with(LocalDensity.current) { HeaderMinHeight.roundToPx() }
+        val headerMaxHeightPx = with(LocalDensity.current) { HeaderMaxHeight.roundToPx() }
+        val headerMinHeightPx = with(LocalDensity.current) { HeaderMinHeight.roundToPx() }
 
         Layout(
             content = {
@@ -83,7 +82,6 @@ private fun Header(
                 // looks ok when scaled.
                 Box(
                     modifier = Modifier
-                        .size(HeaderMaxHeight - 32.dp)
                         .padding(16.dp)
                         .clip(CircleShape)
                         .background(color = MaterialTheme.colorScheme.primaryContainer),
@@ -98,24 +96,72 @@ private fun Header(
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
+
+                Box(
+                    modifier = Modifier.padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Some Text Value",
+                        style = Typography.headlineLarge,
+                    )
+                }
             },
         ) { measurables, constraints ->
-            check(measurables.size == 1)
+            check(measurables.size == 2)
             val imageMeasurable = measurables[0]
+            val titleMeasurable = measurables[1]
 
-            val occludedPx = scrollStateProvider().coerceAtMost(maxHeightPx - minHeightPx)
-            val collapseFraction: Float =
-                1 - ((maxHeightPx - occludedPx).toFloat() / maxHeightPx)
+            val finalHeightChangePx = headerMaxHeightPx - headerMinHeightPx
+            // Between none=0.0 and complete=1.0, how much of the transformation has happened?
+            val progress: Float =
+                (scrollStateProvider().toFloat() / finalHeightChangePx).coerceAtMost(maximumValue = 1f)
 
-            val imageHeight = lerp(maxHeightPx, 0, collapseFraction)
+            // The image takes up 3/4 of the height
+            // Shrink the square image and move from the center to the right of the layout
+            val imageInitialSize = headerMaxHeightPx * 3 / 4
+            val imageFinalSize = headerMinHeightPx
+            val imageSize = lerp(imageInitialSize, imageFinalSize, progress)
+            val imageStartOffset =
+                lerp(
+                    // From centered on the screen
+                    (constraints.maxWidth - imageInitialSize) / 2,
+                    // To the right edge
+                    constraints.maxWidth - imageFinalSize,
+                    progress
+                )
             val imagePlaceable =
-                imageMeasurable.measure(Constraints.fixed(imageHeight, imageHeight))
+                imageMeasurable.measure(Constraints.fixed(imageSize, imageSize))
+
+            // The title takes up 1/4 of the height
+            // Keep the title size but move up and left to be next to the image
+            val titlePlaceable = titleMeasurable.measure(
+                Constraints.fixedHeight(
+                    headerMaxHeightPx / 4
+                )
+            )
+            val titleStartOffset = lerp(
+                // From the center
+                (constraints.maxWidth - titlePlaceable.width) / 2,
+                // To the left edge, centered in the space to the left of the image
+                (constraints.maxWidth - imageFinalSize - titlePlaceable.width) / 2,
+                progress
+            )
+            val titleTopOffset = lerp(
+                // From just below the image
+                headerMaxHeightPx * 3 / 4,
+                // To centered
+                (headerMinHeightPx - titlePlaceable.height) / 2,
+                progress
+            )
 
             layout(
                 width = constraints.maxWidth,
-                height = imageHeight,
+                height = lerp(headerMaxHeightPx, headerMinHeightPx, progress),
             ) {
-                imagePlaceable.placeRelative(0, 0)
+                imagePlaceable.placeRelative(imageStartOffset, 0)
+
+                titlePlaceable.placeRelative(titleStartOffset, titleTopOffset)
             }
         }
     }
@@ -146,7 +192,7 @@ private fun Body(scrollState: ScrollState) {
         ) {
             Text(
                 text = """
-                    Scroll me to vary the size of the header image without causing recomposition.
+                    Scroll me to vary the size of the header, changing size and location of the header components without causing recomposition.
 
                     This scrollable view sits in front of the header, with spacers preventing it overlapping.
 

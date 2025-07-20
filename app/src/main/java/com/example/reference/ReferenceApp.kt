@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.navigation.SerializableJsonNavType
-import com.example.reference.ui.AnimationLayoutShrinkImageOnScrollScreen
+import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ChromeReadmeScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
@@ -96,7 +96,7 @@ fun ReferenceApp() {
                 onSelectAnimationOffsetPaddingOnScroll = {
                     navController.navigate(Destinations.AnimationOffsetPaddingOnScroll)
                 },
-                onSelectAnimationLayoutScaleOnScroll = {
+                onSelectAnimationLayoutRearrangeOnScroll = {
                     navController.navigate(Destinations.AnimationLayoutScaleOnScroll)
                 },
                 onSelectComponentsRoundedCorners = {
@@ -141,7 +141,7 @@ fun ReferenceApp() {
             AnimationOffsetPaddingOnScrollScreen()
         }
         composable<Destinations.AnimationLayoutScaleOnScroll> {
-            AnimationLayoutShrinkImageOnScrollScreen()
+            AnimationLayoutRearrangeOnScrollScreen()
         }
         composable<Destinations.ComponentsRoundedCorners> {
             ExampleComponentsRoundedCornersScreen()
