@@ -8,9 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.reference.ui.theme.ReferenceTheme
 import com.example.ui.TextH1
 
 @Composable
@@ -23,6 +21,7 @@ fun DirectoryScreen(
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectAnimationLayoutScaleOnScroll: () -> Unit,
     onSelectComponentsRoundedCorners: () -> Unit,
+    onSelectComponentsRichTextFromHTML: () -> Unit,
 ) {
     Scaffold { contentPadding ->
         Column(
@@ -63,6 +62,9 @@ fun DirectoryScreen(
             TextH1(text = "UI Components")
             Button(onClick = { onSelectComponentsRoundedCorners() }) {
                 Text("Rounded corners on various components")
+            }
+            Button(onClick = { onSelectComponentsRichTextFromHTML() }) {
+                Text("Rich text from HTML")
             }
         }
     }

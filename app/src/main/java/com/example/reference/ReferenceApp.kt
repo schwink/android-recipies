@@ -10,6 +10,7 @@ import com.example.navigation.SerializableJsonNavType
 import com.example.reference.ui.AnimationLayoutShrinkImageOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ChromeReadmeScreen
+import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleBasicViewModel
 import com.example.reference.ui.ExampleChromeModalTextInputScreen
@@ -51,6 +52,9 @@ sealed class Destinations {
 
     @Serializable
     object ComponentsRoundedCorners
+
+    @Serializable
+    object ComponentsRichTextFromHTML
 }
 
 object ExampleCustomNavType :
@@ -97,6 +101,9 @@ fun ReferenceApp() {
                 },
                 onSelectComponentsRoundedCorners = {
                     navController.navigate(Destinations.ComponentsRoundedCorners)
+                },
+                onSelectComponentsRichTextFromHTML = {
+                    navController.navigate(Destinations.ComponentsRichTextFromHTML)
                 }
             )
         }
@@ -138,6 +145,9 @@ fun ReferenceApp() {
         }
         composable<Destinations.ComponentsRoundedCorners> {
             ExampleComponentsRoundedCornersScreen()
+        }
+        composable<Destinations.ComponentsRichTextFromHTML> {
+            ComponentsRichTextFromHTMLScreen()
         }
     }
 }
