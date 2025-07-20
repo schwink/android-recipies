@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.navigation.SerializableJsonNavType
+import com.example.reference.ui.AnimationFadeInRowOnBottomSheetScreen
 import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ChromeReadmeScreen
@@ -49,6 +50,9 @@ sealed class Destinations {
 
     @Serializable
     object AnimationLayoutScaleOnScroll
+
+    @Serializable
+    object AnimationFadeInRowOnBottomSheet
 
     @Serializable
     object ComponentsRoundedCorners
@@ -99,6 +103,9 @@ fun ReferenceApp() {
                 onSelectAnimationLayoutRearrangeOnScroll = {
                     navController.navigate(Destinations.AnimationLayoutScaleOnScroll)
                 },
+                onSelectAnimationFadeInRowOnBottomSheet = {
+                    navController.navigate(Destinations.AnimationFadeInRowOnBottomSheet)
+                },
                 onSelectComponentsRoundedCorners = {
                     navController.navigate(Destinations.ComponentsRoundedCorners)
                 },
@@ -142,6 +149,9 @@ fun ReferenceApp() {
         }
         composable<Destinations.AnimationLayoutScaleOnScroll> {
             AnimationLayoutRearrangeOnScrollScreen()
+        }
+        composable<Destinations.AnimationFadeInRowOnBottomSheet> {
+            AnimationFadeInRowOnBottomSheetScreen()
         }
         composable<Destinations.ComponentsRoundedCorners> {
             ExampleComponentsRoundedCornersScreen()

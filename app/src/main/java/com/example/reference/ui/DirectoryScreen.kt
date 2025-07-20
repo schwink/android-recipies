@@ -20,6 +20,7 @@ fun DirectoryScreen(
     onSelectChromeModalTextInput: () -> Unit,
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectAnimationLayoutRearrangeOnScroll: () -> Unit,
+    onSelectAnimationFadeInRowOnBottomSheet: () -> Unit,
     onSelectComponentsRoundedCorners: () -> Unit,
     onSelectComponentsRichTextFromHTML: () -> Unit,
 ) {
@@ -57,6 +58,9 @@ fun DirectoryScreen(
             }
             Button(onClick = { onSelectAnimationLayoutRearrangeOnScroll() }) {
                 Text("Rearrange and resize header components on scroll without triggering recomposition")
+            }
+            Button(onClick = { onSelectAnimationFadeInRowOnBottomSheet() }) {
+                Text("Fade in a row when expanding a bottom sheet")
             }
 
             TextH1(text = "UI Components")
