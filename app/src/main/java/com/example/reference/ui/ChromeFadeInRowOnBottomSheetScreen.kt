@@ -3,6 +3,7 @@ package com.example.reference.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -46,31 +47,34 @@ fun ChromeFadeInRowOnBottomSheetScreen() {
             }
         }
 
-        BottomSheetScaffold(
+        Box(
             modifier = Modifier
                 .padding(contentPadding)
-                .fillMaxWidth(),
-            snackbarHost = {},
-            sheetContent = {
-                SheetBody(
-                    peekTopOffsetPx = peekTopOffsetPx,
-                    sheetTopOffsetPx = sheetTopOffsetPx,
-                )
-            },
-            scaffoldState = sheetScaffoldState,
-            sheetPeekHeight = peekHeight,
         ) {
-            Text(
-                text = """
+            BottomSheetScaffold(
+                modifier = Modifier.fillMaxWidth(),
+                snackbarHost = {},
+                sheetContent = {
+                    SheetBody(
+                        peekTopOffsetPx = peekTopOffsetPx,
+                        sheetTopOffsetPx = sheetTopOffsetPx,
+                    )
+                },
+                scaffoldState = sheetScaffoldState,
+                sheetPeekHeight = peekHeight,
+            ) {
+                Text(
+                    text = """
                     Here is the background.
                     
                     Pull up the sheet to fade in a row that is hidden when the sheet is not fully expanded.
                     
                     The row has a custom layout to control its size in the layout phase, and once it is expanded it uses graphicsLayer to fade in its alpha, avoiding recomposition.
                 """.trimIndent(),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(16.dp)
-            )
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
         }
     }
 }
