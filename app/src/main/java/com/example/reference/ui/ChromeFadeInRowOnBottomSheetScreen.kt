@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChromeFadeInRowOnBottomSheetScreen() {
-    val peekHeight = 250.dp
+    val peekHeight = 350.dp
     val windowHeightPx = LocalWindowInfo.current.containerSize.height
     val peekTopOffsetPx = with(LocalDensity.current) { windowHeightPx - peekHeight.roundToPx() }
 
