@@ -11,10 +11,10 @@ import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ChromeFullScreenTextInputScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
+import com.example.reference.ui.CustomNavTypeScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleComponentsRoundedCornersScreen
 import com.example.reference.ui.ExampleCustomNavData
-import com.example.reference.ui.ExampleCustomNavTypeScreen
 import com.example.reference.ui.ViewModelDebounceSaveScreen
 import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
@@ -24,8 +24,8 @@ sealed class Destinations {
     object Directory
 
     @Serializable
-    data class ExampleCustomNavType(
-        val initialValue: ExampleCustomNavData?,
+    data class CustomNavType(
+        val serializedValue: ExampleCustomNavData?,
     )
 
     @Serializable
@@ -69,7 +69,7 @@ fun ReferenceApp() {
         composable<Destinations.Directory> {
             DirectoryScreen(
                 onSelectCustomNavType = { data ->
-                    val destination = Destinations.ExampleCustomNavType(data)
+                    val destination = Destinations.CustomNavType(data)
                     navController.navigate(destination)
                 },
                 onSelectViewModelDebounceSave = {
@@ -95,10 +95,10 @@ fun ReferenceApp() {
                 }
             )
         }
-        composable<Destinations.ExampleCustomNavType>(typeMap = typeMap) { backStackEntry ->
-            val destination = backStackEntry.toRoute<Destinations.ExampleCustomNavType>()
+        composable<Destinations.CustomNavType>(typeMap = typeMap) { backStackEntry ->
+            val destination = backStackEntry.toRoute<Destinations.CustomNavType>()
 
-            ExampleCustomNavTypeScreen(data = destination.initialValue)
+            CustomNavTypeScreen(data = destination.serializedValue)
         }
         composable<Destinations.ViewModelDebounceSave> { backStackEntry ->
             ViewModelDebounceSaveScreen()

@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -13,11 +14,15 @@ data class ExampleCustomNavData(
 )
 
 @Composable
-fun ExampleCustomNavTypeScreen(
-    modifier: Modifier = Modifier,
+fun CustomNavTypeScreen(
     data: ExampleCustomNavData?
 ) {
     Scaffold { contentPadding ->
-        Text(modifier = Modifier.padding(contentPadding), text = data?.value ?: "<null>")
+        Text(
+            modifier = Modifier
+                .padding(contentPadding)
+                .padding(8.dp),
+            text = data?.value ?: "<null>"
+        )
     }
 }
