@@ -14,8 +14,7 @@ import com.example.ui.TextH1
 @Composable
 fun DirectoryScreen(
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
-    onSelectViewModelBasic: () -> Unit,
-    onSelectViewModelNetwork: () -> Unit,
+    onSelectViewModelDebounceSave: () -> Unit,
     onSelectChromeModalTextInput: () -> Unit,
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectAnimationLayoutRearrangeOnScroll: () -> Unit,
@@ -36,11 +35,8 @@ fun DirectoryScreen(
             }
 
             TextH1(text = "ViewModel")
-            Button(onClick = { onSelectViewModelBasic() }) {
-                Text("Basic ViewModel setup")
-            }
-            Button(onClick = { onSelectViewModelNetwork() }) {
-                Text("ViewModel with network")
+            Button(onClick = { onSelectViewModelDebounceSave() }) {
+                Text("Debounce save for an input field")
             }
 
             TextH1(text = "Chrome")

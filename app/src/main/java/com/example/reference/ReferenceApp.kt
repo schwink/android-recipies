@@ -1,7 +1,6 @@
 package com.example.reference
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,14 +11,11 @@ import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
 import com.example.reference.ui.DirectoryScreen
-import com.example.reference.ui.ExampleBasicViewModel
 import com.example.reference.ui.ExampleChromeModalTextInputScreen
 import com.example.reference.ui.ExampleComponentsRoundedCornersScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ExampleCustomNavTypeScreen
-import com.example.reference.ui.ExampleNetworkViewModel
-import com.example.reference.ui.ExampleViewModelBasicScreen
-import com.example.reference.ui.ExampleViewModelNetworkScreen
+import com.example.reference.ui.ViewModelDebounceSaveScreen
 import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
 
@@ -33,10 +29,7 @@ sealed class Destinations {
     )
 
     @Serializable
-    object ViewModelBasic
-
-    @Serializable
-    object ViewModelNetwork
+    object ViewModelDebounceSave
 
     @Serializable
     object ChromeModalTextInput
@@ -79,13 +72,8 @@ fun ReferenceApp() {
                     val destination = Destinations.ExampleCustomNavType(data)
                     navController.navigate(destination)
                 },
-                onSelectViewModelBasic = {
-                    val destination = Destinations.ViewModelBasic
-                    navController.navigate(destination)
-                },
-                onSelectViewModelNetwork = {
-                    val destination = Destinations.ViewModelNetwork
-                    navController.navigate(destination)
+                onSelectViewModelDebounceSave = {
+                    navController.navigate(Destinations.ViewModelDebounceSave)
                 },
                 onSelectChromeModalTextInput = {
                     navController.navigate(Destinations.ChromeModalTextInput)
@@ -112,24 +100,8 @@ fun ReferenceApp() {
 
             ExampleCustomNavTypeScreen(data = destination.initialValue)
         }
-        composable<Destinations.ViewModelBasic> { backStackEntry ->
-            // Create a new ViewModel with this destination as its scope.
-            // It will be destroyed when navigating back.
-            val viewModel = viewModel(
-                modelClass = ExampleBasicViewModel::class,
-                // Pass a unique key, so we get a fresh model if there are ever multiple concurrent
-                // instances
-                key = backStackEntry.id,
-            )
-
-            ExampleViewModelBasicScreen(viewModel = viewModel)
-        }
-        composable<Destinations.ViewModelNetwork> { backStackEntry ->
-            val viewModel = viewModel<ExampleNetworkViewModel>(
-                factory = ExampleNetworkViewModel.Factory(),
-            )
-
-            ExampleViewModelNetworkScreen(viewModel = viewModel)
+        composable<Destinations.ViewModelDebounceSave> { backStackEntry ->
+            ViewModelDebounceSaveScreen()
         }
         composable<Destinations.ChromeModalTextInput> {
             ExampleChromeModalTextInputScreen()
