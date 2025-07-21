@@ -14,11 +14,11 @@ Patterns for moving stuff around the screen dynamically in the layout or draw ph
 
 ### Simulate changing padding on a single component on scroll
 
-![chrome_offset_padding](https://github.com/user-attachments/assets/59ec2021-e259-4a43-8e81-36b7bfd5ab14)
+![chrome_offset_padding](https://github.com/user-attachments/assets/dfc47adf-645f-4e58-9ed2-d349c1044cff)
 
 ### Rearrange a header to be more compact on scroll
 
-![chrome_rearrange_layout](https://github.com/user-attachments/assets/b391f6cd-a544-4da8-b827-db6fd625230b)
+![chrome_rearrange_layout](https://github.com/user-attachments/assets/7d8decbf-866d-47ff-8285-e62ad88a6062)
 
 ### Fade in a row
 
