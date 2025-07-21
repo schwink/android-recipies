@@ -26,13 +26,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.reference.ui.theme.Typography
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import java.io.IOException
 import kotlin.random.Random
@@ -47,7 +46,10 @@ class DebounceSaveViewModel : ViewModel() {
 
     private val networkClient = ExampleUnreliableNetworkClient
 
-    private val _valueDebouncer = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    private val _valueDebouncer = MutableSharedFlow<String>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
     private val _valueState =
         MutableStateFlow<SavableFieldState<String>>(SavableFieldState.Saved(""))
     val valueState = _valueState.asStateFlow()
@@ -57,38 +59,33 @@ class DebounceSaveViewModel : ViewModel() {
         viewModelScope.launch {
             _valueDebouncer
                 .debounce(500) // wait ms after last input
-                .flatMapLatest { value ->
-                    flow {
-                        Log.w("DebounceSave", "Sending $value to network")
-                        _valueState.emit(SavableFieldState.InProgress(value))
+                .collect { value ->
+                    Log.w("DebounceSave", "Sending $value to network")
+                    _valueState.emit(SavableFieldState.InProgress(value))
 
-                        val result = networkClient.commitState(value)
-                        result.onSuccess {
-                            Log.w("DebounceSave", "Success $value")
-                            emit(Unit)
-                            _valueState.emit(SavableFieldState.Saved(value))
-                        }.onFailure { e ->
-                            Log.w("DebounceSave", "Failure $value")
-                            _valueState.emit(
-                                SavableFieldState.Error(
-                                    value,
-                                    e.message ?: e.toString()
-                                )
+                    val result = networkClient.commitState(value)
+                    result.onSuccess {
+                        Log.w("DebounceSave", "Success $value")
+                        _valueState.emit(SavableFieldState.Saved(value))
+                    }.onFailure { e ->
+                        Log.w("DebounceSave", "Failure $value")
+                        _valueState.emit(
+                            SavableFieldState.Error(
+                                value,
+                                e.message ?: e.toString()
                             )
-                        }
+                        )
                     }
                 }
-                .collect {}
         }
-
     }
 
     fun commit(value: String) {
         // Put the value in the SharedFlow, replacing the last item in the buffer and triggering the
         // debounce timer.
-        // Could set loading to true here if want to show the spinner while waiting, instead of only
-        // when the network call is in progress.
-        _valueDebouncer.tryEmit(value)
+        // success should always be true, because of BufferOverflow.DROP_OLDEST
+        val success = _valueDebouncer.tryEmit(value)
+        Log.w("DebounceSave", "Submitting $value: $success")
     }
 }
 
@@ -105,9 +102,9 @@ fun ViewModelDebounceSaveScreen(
         ) {
             Text(
                 text = """
-                    Type into the input box.
+                    After 500ms with no further input, the result is committed to the network service.
 
-                    After 500ms with no further input, the result is committed to the network.
+                    To avoid races at the network layer, once a request is submitted, we wait for it to complete before taking the next one, even if the value has been edited in the meantime.
                 """.trimIndent()
             )
 
