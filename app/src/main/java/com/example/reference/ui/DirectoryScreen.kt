@@ -19,8 +19,8 @@ fun DirectoryScreen(
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectAnimationLayoutRearrangeOnScroll: () -> Unit,
     onSelectAnimationFadeInRowOnBottomSheet: () -> Unit,
-    onSelectComponentsRoundedCorners: () -> Unit,
     onSelectComponentsRichTextFromHTML: () -> Unit,
+    onSelectComponentsRoundedCorners: () -> Unit,
 ) {
     Scaffold { contentPadding ->
         Column(
@@ -56,11 +56,11 @@ fun DirectoryScreen(
             }
 
             TextH1(text = "UI Components")
-            Button(onClick = { onSelectComponentsRoundedCorners() }) {
-                Text("Rounded corners on various components")
-            }
             Button(onClick = { onSelectComponentsRichTextFromHTML() }) {
                 Text("Rich text from HTML")
+            }
+            Button(onClick = { onSelectComponentsRoundedCorners() }) {
+                Text("Rounded corners on various components")
             }
         }
     }

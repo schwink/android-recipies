@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,26 +28,16 @@ import androidx.compose.ui.unit.dp
 import com.example.ui.TextH2
 
 @Composable
-fun ExampleComponentsRoundedCornersScreen() {
+fun ComponentsRoundedCornersScreen() {
     Scaffold { contentPadding ->
         Column(
             modifier = Modifier
-                .consumeWindowInsets(contentPadding)
+                .fillMaxSize()
                 .padding(contentPadding)
-                .fillMaxSize(),
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TextH2("Icons")
-
-            Icon(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(color = MaterialTheme.colorScheme.primaryContainer),
-                imageVector = Icons.Default.Person,
-                contentDescription = "Person",
-                tint = MaterialTheme.colorScheme.primary,
-            )
 
             Box(
                 modifier = Modifier

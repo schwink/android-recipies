@@ -11,9 +11,9 @@ import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ChromeFullScreenTextInputScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
+import com.example.reference.ui.ComponentsRoundedCornersScreen
 import com.example.reference.ui.CustomNavTypeScreen
 import com.example.reference.ui.DirectoryScreen
-import com.example.reference.ui.ExampleComponentsRoundedCornersScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ViewModelDebounceSaveScreen
 import kotlinx.serialization.Serializable
@@ -44,10 +44,10 @@ sealed class Destinations {
     object AnimationFadeInRowOnBottomSheet
 
     @Serializable
-    object ComponentsRoundedCorners
+    object ComponentsRichTextFromHTML
 
     @Serializable
-    object ComponentsRichTextFromHTML
+    object ComponentsRoundedCorners
 }
 
 object ExampleCustomNavType :
@@ -87,12 +87,12 @@ fun ReferenceApp() {
                 onSelectAnimationFadeInRowOnBottomSheet = {
                     navController.navigate(Destinations.AnimationFadeInRowOnBottomSheet)
                 },
+                onSelectComponentsRichTextFromHTML = {
+                    navController.navigate(Destinations.ComponentsRichTextFromHTML)
+                },
                 onSelectComponentsRoundedCorners = {
                     navController.navigate(Destinations.ComponentsRoundedCorners)
                 },
-                onSelectComponentsRichTextFromHTML = {
-                    navController.navigate(Destinations.ComponentsRichTextFromHTML)
-                }
             )
         }
         composable<Destinations.CustomNavType>(typeMap = typeMap) { backStackEntry ->
@@ -115,11 +115,11 @@ fun ReferenceApp() {
         composable<Destinations.AnimationFadeInRowOnBottomSheet> {
             AnimationFadeInRowOnBottomSheetScreen()
         }
-        composable<Destinations.ComponentsRoundedCorners> {
-            ExampleComponentsRoundedCornersScreen()
-        }
         composable<Destinations.ComponentsRichTextFromHTML> {
             ComponentsRichTextFromHTMLScreen()
+        }
+        composable<Destinations.ComponentsRoundedCorners> {
+            ComponentsRoundedCornersScreen()
         }
     }
 }
