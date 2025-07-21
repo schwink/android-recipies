@@ -9,9 +9,9 @@ import com.example.navigation.SerializableJsonNavType
 import com.example.reference.ui.AnimationFadeInRowOnBottomSheetScreen
 import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
+import com.example.reference.ui.ChromeFullScreenTextInputScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
 import com.example.reference.ui.DirectoryScreen
-import com.example.reference.ui.ExampleChromeModalTextInputScreen
 import com.example.reference.ui.ExampleComponentsRoundedCornersScreen
 import com.example.reference.ui.ExampleCustomNavData
 import com.example.reference.ui.ExampleCustomNavTypeScreen
@@ -32,7 +32,7 @@ sealed class Destinations {
     object ViewModelDebounceSave
 
     @Serializable
-    object ChromeModalTextInput
+    object ChromeFullScreenTextInput
 
     @Serializable
     object AnimationOffsetPaddingOnScroll
@@ -75,8 +75,8 @@ fun ReferenceApp() {
                 onSelectViewModelDebounceSave = {
                     navController.navigate(Destinations.ViewModelDebounceSave)
                 },
-                onSelectChromeModalTextInput = {
-                    navController.navigate(Destinations.ChromeModalTextInput)
+                onSelectChromeFullScreenTextInput = {
+                    navController.navigate(Destinations.ChromeFullScreenTextInput)
                 },
                 onSelectAnimationOffsetPaddingOnScroll = {
                     navController.navigate(Destinations.AnimationOffsetPaddingOnScroll)
@@ -103,8 +103,8 @@ fun ReferenceApp() {
         composable<Destinations.ViewModelDebounceSave> { backStackEntry ->
             ViewModelDebounceSaveScreen()
         }
-        composable<Destinations.ChromeModalTextInput> {
-            ExampleChromeModalTextInputScreen()
+        composable<Destinations.ChromeFullScreenTextInput> {
+            ChromeFullScreenTextInputScreen()
         }
         composable<Destinations.AnimationOffsetPaddingOnScroll> {
             AnimationOffsetPaddingOnScrollScreen()

@@ -15,7 +15,7 @@ import com.example.ui.TextH1
 fun DirectoryScreen(
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
     onSelectViewModelDebounceSave: () -> Unit,
-    onSelectChromeModalTextInput: () -> Unit,
+    onSelectChromeFullScreenTextInput: () -> Unit,
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectAnimationLayoutRearrangeOnScroll: () -> Unit,
     onSelectAnimationFadeInRowOnBottomSheet: () -> Unit,
@@ -40,8 +40,8 @@ fun DirectoryScreen(
             }
 
             TextH1(text = "Chrome")
-            Button(onClick = { onSelectChromeModalTextInput() }) {
-                Text("Modal text input screen reacting to soft keyboard and nav bar")
+            Button(onClick = { onSelectChromeFullScreenTextInput() }) {
+                Text("Full-screen text input reacting to the soft keyboard")
             }
 
             TextH1(text = "Animation")

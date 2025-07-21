@@ -2,7 +2,6 @@ package com.example.reference.ui
 
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -23,7 +22,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
 @Composable
-fun ExampleChromeModalTextInputScreen() {
+fun ChromeFullScreenTextInputScreen() {
 
     val activity = LocalActivity.current
     activity?.run {
@@ -57,22 +56,18 @@ fun ExampleChromeModalTextInputScreen() {
     Scaffold { contentPadding ->
         Column(
             modifier = Modifier
-                // Order can be significant between paddings and fillMaxSize
                 .fillMaxSize()
                 .padding(contentPadding)
-                .consumeWindowInsets(contentPadding)
                 .imePadding() // Pad this element to make room for the keyboard when it opens
         ) {
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = """
-                "Full-page" screen that fills the whole screen and does not scroll.
+                Full-page text input that fills the whole screen and does not scroll.
 
-                The screen background color extends behind the status bar on top and the nav bar on bottom.
+                Tapping on the text input raises the keyboard and shrinks the screen content.
 
-                Tapping on a text input raises the keyboard and shrinks the screen content.
-
-                In the <activity> entry in AndroidManifest.xml, android:windowSoftInputMode="adjustNothing" prevents content jumping around as the keyboard comes up, instead relying on Modifier.imePadding() to handle it.
+                In the <activity> entry in AndroidManifest.xml, android:windowSoftInputMode="adjustNothing" prevents content jumping around as the keyboard comes up. We rely on Modifier.imePadding() to handle it instead of the old windowSoftInputMode.
             """.trimIndent(),
             )
 
