@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AnimationFadeInRowOnBottomSheetScreen() {
-    val peekHeight = 400.dp
+fun ChromeFadeInRowOnBottomSheetScreen() {
+    val peekHeight = 250.dp
     val windowHeightPx = LocalWindowInfo.current.containerSize.height
     val peekTopOffsetPx = with(LocalDensity.current) { windowHeightPx - peekHeight.roundToPx() }
 
@@ -61,7 +61,13 @@ fun AnimationFadeInRowOnBottomSheetScreen() {
             sheetPeekHeight = peekHeight,
         ) {
             Text(
-                text = "Here is the background",
+                text = """
+                    Here is the background.
+                    
+                    Pull up the sheet to fade in a row that is hidden when the sheet is not fully expanded.
+                    
+                    The row has a custom layout to control its size in the layout phase, and once it is expanded it uses graphicsLayer to fade in its alpha, avoiding recomposition.
+                """.trimIndent(),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(16.dp)
             )
@@ -87,7 +93,7 @@ private fun SheetBody(
         val itemHeightPx = with(LocalDensity.current) { itemHeight.roundToPx() }
 
         // Expand the item starting a little above the peek height, then fade in the alpha
-        val startExpandingTopOffsetPx = peekTopOffsetPx - 200
+        val startExpandingTopOffsetPx = peekTopOffsetPx - 300
         val startFadingTopOffsetPx = startExpandingTopOffsetPx - itemHeightPx
 
         Layout(
@@ -106,7 +112,7 @@ private fun SheetBody(
                         .padding(4.dp)
                         .background(Color.Red)
                         .padding(16.dp),
-                    text = "Here is an element to show only when the sheet is expanded",
+                    text = "Here is an element that is shown only when the sheet is expanded past a certain point",
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

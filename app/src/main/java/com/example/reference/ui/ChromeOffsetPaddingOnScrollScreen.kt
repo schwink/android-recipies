@@ -33,7 +33,7 @@ private val HeaderMaxHeight = 200.dp
 private val HeaderMinHeight = 50.dp
 
 @Composable
-fun AnimationOffsetPaddingOnScrollScreen() {
+fun ChromeOffsetPaddingOnScrollScreen() {
     Scaffold { contentPadding ->
         Box(
             modifier = Modifier
@@ -131,7 +131,9 @@ private fun Body(scrollState: ScrollState) {
 
                     This scrollable view sits in front of the header, with spacers preventing it overlapping.
 
-                    The actual size of the header does not change, but its contents are offset to stay centered as this scrolling element occludes it.
+                    The actual size of the header does not change. The Text inside changes its offset to stay centered as this scrolling element occludes it.
+
+                    This allows us to reposition the element without causing recomposition.
                 """.trimIndent(),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(16.dp)

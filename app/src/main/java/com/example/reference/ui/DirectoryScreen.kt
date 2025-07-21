@@ -16,9 +16,9 @@ fun DirectoryScreen(
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
     onSelectViewModelDebounceSave: () -> Unit,
     onSelectChromeFullScreenTextInput: () -> Unit,
-    onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
-    onSelectAnimationLayoutRearrangeOnScroll: () -> Unit,
-    onSelectAnimationFadeInRowOnBottomSheet: () -> Unit,
+    onSelectChromeOffsetPaddingOnScroll: () -> Unit,
+    onSelectChromeRearrangeLayoutOnScroll: () -> Unit,
+    onSelectChromeFadeInRowOnBottomSheet: () -> Unit,
     onSelectComponentsRichTextFromHTML: () -> Unit,
     onSelectComponentsRoundedCorners: () -> Unit,
 ) {
@@ -40,19 +40,17 @@ fun DirectoryScreen(
             }
 
             TextH1(text = "Chrome")
+            Button(onClick = { onSelectChromeOffsetPaddingOnScroll() }) {
+                Text("Change padding of a header item on scroll")
+            }
+            Button(onClick = { onSelectChromeRearrangeLayoutOnScroll() }) {
+                Text("Rearrange and resize header components on scroll")
+            }
+            Button(onClick = { onSelectChromeFadeInRowOnBottomSheet() }) {
+                Text("Fade in a row when expanding a bottom sheet")
+            }
             Button(onClick = { onSelectChromeFullScreenTextInput() }) {
                 Text("Full-screen text input reacting to the soft keyboard")
-            }
-
-            TextH1(text = "Animation")
-            Button(onClick = { onSelectAnimationOffsetPaddingOnScroll() }) {
-                Text("Change header padding on scroll without triggering recomposition")
-            }
-            Button(onClick = { onSelectAnimationLayoutRearrangeOnScroll() }) {
-                Text("Rearrange and resize header components on scroll without triggering recomposition")
-            }
-            Button(onClick = { onSelectAnimationFadeInRowOnBottomSheet() }) {
-                Text("Fade in a row when expanding a bottom sheet")
             }
 
             TextH1(text = "UI Components")

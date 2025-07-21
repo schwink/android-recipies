@@ -6,10 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.navigation.SerializableJsonNavType
-import com.example.reference.ui.AnimationFadeInRowOnBottomSheetScreen
-import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
-import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
+import com.example.reference.ui.ChromeFadeInRowOnBottomSheetScreen
 import com.example.reference.ui.ChromeFullScreenTextInputScreen
+import com.example.reference.ui.ChromeRearrangeLayoutOnScrollScreen
+import com.example.reference.ui.ChromeOffsetPaddingOnScrollScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
 import com.example.reference.ui.ComponentsRoundedCornersScreen
 import com.example.reference.ui.CustomNavTypeScreen
@@ -32,16 +32,16 @@ sealed class Destinations {
     object ViewModelDebounceSave
 
     @Serializable
+    object ChromeOffsetPaddingOnScroll
+
+    @Serializable
+    object ChromeRearrangeLayoutOnScroll
+
+    @Serializable
+    object ChromeFadeInRowOnBottomSheet
+
+    @Serializable
     object ChromeFullScreenTextInput
-
-    @Serializable
-    object AnimationOffsetPaddingOnScroll
-
-    @Serializable
-    object AnimationLayoutScaleOnScroll
-
-    @Serializable
-    object AnimationFadeInRowOnBottomSheet
 
     @Serializable
     object ComponentsRichTextFromHTML
@@ -75,17 +75,17 @@ fun ReferenceApp() {
                 onSelectViewModelDebounceSave = {
                     navController.navigate(Destinations.ViewModelDebounceSave)
                 },
+                onSelectChromeOffsetPaddingOnScroll = {
+                    navController.navigate(Destinations.ChromeOffsetPaddingOnScroll)
+                },
+                onSelectChromeRearrangeLayoutOnScroll = {
+                    navController.navigate(Destinations.ChromeRearrangeLayoutOnScroll)
+                },
+                onSelectChromeFadeInRowOnBottomSheet = {
+                    navController.navigate(Destinations.ChromeFadeInRowOnBottomSheet)
+                },
                 onSelectChromeFullScreenTextInput = {
                     navController.navigate(Destinations.ChromeFullScreenTextInput)
-                },
-                onSelectAnimationOffsetPaddingOnScroll = {
-                    navController.navigate(Destinations.AnimationOffsetPaddingOnScroll)
-                },
-                onSelectAnimationLayoutRearrangeOnScroll = {
-                    navController.navigate(Destinations.AnimationLayoutScaleOnScroll)
-                },
-                onSelectAnimationFadeInRowOnBottomSheet = {
-                    navController.navigate(Destinations.AnimationFadeInRowOnBottomSheet)
                 },
                 onSelectComponentsRichTextFromHTML = {
                     navController.navigate(Destinations.ComponentsRichTextFromHTML)
@@ -106,14 +106,14 @@ fun ReferenceApp() {
         composable<Destinations.ChromeFullScreenTextInput> {
             ChromeFullScreenTextInputScreen()
         }
-        composable<Destinations.AnimationOffsetPaddingOnScroll> {
-            AnimationOffsetPaddingOnScrollScreen()
+        composable<Destinations.ChromeOffsetPaddingOnScroll> {
+            ChromeOffsetPaddingOnScrollScreen()
         }
-        composable<Destinations.AnimationLayoutScaleOnScroll> {
-            AnimationLayoutRearrangeOnScrollScreen()
+        composable<Destinations.ChromeRearrangeLayoutOnScroll> {
+            ChromeRearrangeLayoutOnScrollScreen()
         }
-        composable<Destinations.AnimationFadeInRowOnBottomSheet> {
-            AnimationFadeInRowOnBottomSheetScreen()
+        composable<Destinations.ChromeFadeInRowOnBottomSheet> {
+            ChromeFadeInRowOnBottomSheetScreen()
         }
         composable<Destinations.ComponentsRichTextFromHTML> {
             ComponentsRichTextFromHTMLScreen()

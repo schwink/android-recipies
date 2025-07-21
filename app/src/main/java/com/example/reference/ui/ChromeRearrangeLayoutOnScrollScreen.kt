@@ -36,7 +36,7 @@ private val HeaderMaxHeight = 300.dp
 private val HeaderMinHeight = 100.dp
 
 @Composable
-fun AnimationLayoutRearrangeOnScrollScreen() {
+fun ChromeRearrangeLayoutOnScrollScreen() {
     Scaffold { contentPadding ->
         Box(
             modifier = Modifier
@@ -195,6 +195,8 @@ private fun Body(scrollState: ScrollState) {
                     Scroll me to vary the size of the header, changing size and location of the header components without causing recomposition.
 
                     This scrollable view sits in front of the header, with spacers preventing it overlapping.
+                    
+                    The header is a custom layout, which allows us to size and place its contents in the layout phase without causing recomposition.
                 """.trimIndent(),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(16.dp)
