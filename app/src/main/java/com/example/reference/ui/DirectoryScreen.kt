@@ -16,7 +16,6 @@ fun DirectoryScreen(
     onSelectCustomNavType: (ExampleCustomNavData) -> Unit,
     onSelectViewModelBasic: () -> Unit,
     onSelectViewModelNetwork: () -> Unit,
-    onSelectChromeReadme: () -> Unit,
     onSelectChromeModalTextInput: () -> Unit,
     onSelectAnimationOffsetPaddingOnScroll: () -> Unit,
     onSelectAnimationLayoutRearrangeOnScroll: () -> Unit,
@@ -45,9 +44,6 @@ fun DirectoryScreen(
             }
 
             TextH1(text = "Chrome")
-            Button(onClick = { onSelectChromeReadme() }) {
-                Text("Gotchas for system bars, emulator behavior, etc.")
-            }
             Button(onClick = { onSelectChromeModalTextInput() }) {
                 Text("Modal text input screen reacting to soft keyboard and nav bar")
             }

@@ -1,28 +1,21 @@
 # Android Recipies
 
-A cookbook of widgets and UI constructions I like to reuse.
+A cookbook of common patterns and UI constructions.
 
-I originally committed this to try and prompt ChatGPT to follow the patterns here, after noticing weird recommendations that I believe may be references to outdated beta releases of Jetpack Compose. That didn't really work, but here are the instructions:
+# Other Notes / Gotchas
 
-## Project structure
+## Configuring the software keyboard on Android emulator
 
-- Define a top-level App composable entrypoint which MainActivity delegates to
-- Define a custom Application to hold androidx.lifecycle.viewmodel.CreationExtras for dependency injection
+Some of the default Android emulators are configured to use a stylus input. This appears as a rounded bar on the left edge of the screen when a TextField is selected.
 
-## Project dependencies
+This prevents the soft keyboard appearing on the bottom of the screen.
 
-- The app should never depend on *.jvmstubs libraries
+The stylus needs to be disabled in the guest Android OS's settings, by clicking on the stylus bar ... -> Menu.
 
-## Navigation
+If you see a bar on the left edge of the screen when a TextField is selected, it means that Android is trying to use a stylus input.
 
-- Use the type-safe Kotlin DSL with androidx.navigation.compose.NavHost
-- To pass complex serializable arguments, use a helper class like SerializableJsonNavType
+## System bar background color in API 34 vs API 35
 
-## Screens
+To maintain consistent behavior across versions, we need to manually specify the system bar background and content colors.
 
-- Each screen in the app has a root component named *Screen hosting a androidx.compose.material3.Scaffold
-
-## Style
-
-- Use Material Design v3 androidx.compose.material3
-- Set ```dynamicColor = false``` on the theme so that it actually uses the specified colors
+[See good writeup here.](https://www.droidcon.com/2025/02/04/the-elephant-in-the-room-for-android-devs-jetpack-compose-and-edge-to-edge-on-android-15/)

@@ -10,7 +10,6 @@ import com.example.navigation.SerializableJsonNavType
 import com.example.reference.ui.AnimationFadeInRowOnBottomSheetScreen
 import com.example.reference.ui.AnimationLayoutRearrangeOnScrollScreen
 import com.example.reference.ui.AnimationOffsetPaddingOnScrollScreen
-import com.example.reference.ui.ChromeReadmeScreen
 import com.example.reference.ui.ComponentsRichTextFromHTMLScreen
 import com.example.reference.ui.DirectoryScreen
 import com.example.reference.ui.ExampleBasicViewModel
@@ -38,9 +37,6 @@ sealed class Destinations {
 
     @Serializable
     object ViewModelNetwork
-
-    @Serializable
-    object ChromeReadme
 
     @Serializable
     object ChromeModalTextInput
@@ -91,9 +87,6 @@ fun ReferenceApp() {
                     val destination = Destinations.ViewModelNetwork
                     navController.navigate(destination)
                 },
-                onSelectChromeReadme = {
-                    navController.navigate(Destinations.ChromeReadme)
-                },
                 onSelectChromeModalTextInput = {
                     navController.navigate(Destinations.ChromeModalTextInput)
                 },
@@ -137,9 +130,6 @@ fun ReferenceApp() {
             )
 
             ExampleViewModelNetworkScreen(viewModel = viewModel)
-        }
-        composable<Destinations.ChromeReadme> {
-            ChromeReadmeScreen()
         }
         composable<Destinations.ChromeModalTextInput> {
             ExampleChromeModalTextInputScreen()
